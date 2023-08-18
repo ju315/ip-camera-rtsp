@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+	<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jsmpeg/0.1/jsmpg.js"></script>
+		<script src="./index.js"></script>
+	</head>
+	<body>
+		<div></div>
+		<script>
+			const div = document.querySelector('div');
+			ipCameraList.forEach((ipCamera, idx) => {
+				const client = new WebSocket(`ws://localhost:${ipCamera.port}`);
+				const canvas = document.createElement('canvas');
+				canvas.setAttribute('id', idx);
+				canvas.setAttribute('style', 'display: inline-block;');
+				div.appendChild(canvas);
+				const player = new jsmpeg(client, {
+					canvas,
+				});
+			});
+		</script>
+	</body>
+</html>
